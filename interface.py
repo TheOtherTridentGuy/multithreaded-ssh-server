@@ -23,7 +23,7 @@ class Server(paramiko.server.ServerInterface):
         return paramiko.AUTH_SUCCESSFUL
 
 def handle(conn, addr):
-    print(f"[*] Connection from {addr[0]}:{addr[1]}, waiting for SSH connection...")
+    print("[*] Handler waiting for SSH connection...")
     transport = paramiko.Transport(conn)
     transport.add_server_key(host_key)
     transport.start_server(server=server)
@@ -44,6 +44,8 @@ sock.listen(100)
 print("[*] Socket listening")
 while True:
     conn, addr = sock.accept()
+    print(f"[*] Connection from {addr[0]}:{addr[1]}, starting handler...")
     handler = threading.Thread(target=handle, args=(conn, addr))
-    handler.run()
+    handler.start()
+    print("[*] Started handler...")
     
