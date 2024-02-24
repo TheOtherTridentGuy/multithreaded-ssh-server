@@ -48,4 +48,3 @@ while True:
     handler = threading.Thread(target=handle, args=(conn, addr))
     handler.start()
     print("[*] Started handler...")
-    
