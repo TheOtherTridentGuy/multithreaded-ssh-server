@@ -3,9 +3,10 @@ import socket
 import threading  
 
 class SSHInterface:
-    def __init__(self, ip, port) -> None: 
+    def __init__(self, ip, port, callback) -> None: 
         self.ip = ip
         self.port = port
+        self.callback = callback
     
     def start(self):
         self.host_key = paramiko.RSAKey.generate(2048)
@@ -50,11 +51,14 @@ class SSHInterface:
         channel = transport.accept(30) 
         if channel:
             print("[*] SSH connection recieved")
-            channel.send("Hi :)\r\n")
-            print(f"[>] {channel.recv(1024)}")
+            self.callback(channel)
             channel.close()
+
+def example_callback(channel):
+    channel.send("Hi :)\r\n")
+    print(f"[>] {channel.recv(1024)}")
 
 
 if __name__ == "__main__":
-    intf = SSHInterface("localhost", 5555)
+    intf = SSHInterface("localhost", 5555, example_callback)
     intf.start()
