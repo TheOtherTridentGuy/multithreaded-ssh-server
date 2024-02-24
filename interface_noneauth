@@ -54,10 +54,10 @@ class SSHInterface:
             self.callback(channel)
             channel.close()
 
+
 def example_callback(channel):
     channel.send("Hi :)\r\n")
     print(f"[>] {channel.recv(1024)}")
-
 
 if __name__ == "__main__":
     intf = SSHInterface("localhost", 5555, example_callback)
