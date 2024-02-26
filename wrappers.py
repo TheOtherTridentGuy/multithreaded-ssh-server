@@ -4,3 +4,9 @@
 class ChannelWrapper:
     def __init__(self, channel) -> None:
         self.channel = channel
+
+    def chinput(self):
+        pass
+
+    def chprint(self):
+        pass
