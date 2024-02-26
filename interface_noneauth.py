@@ -1,3 +1,6 @@
+# Copyright (c) 2024 Aiden Bohlander aka TheTridentGuy
+# Released under GPL v3.0: https://www.gnu.org/licenses/gpl-3.0
+
 import paramiko
 import socket  
 import threading  
@@ -57,7 +60,12 @@ class SSHInterface:
 
 def example_callback(channel):
     channel.send("Hi :)\r\n")
-    print(f"[>] {channel.recv(1024)}")
+    while True:
+        while not channel.recv_ready():
+            pass
+        data = channel.recv(1024)
+        print(f"[>] {data}")
+        channel.sendall(data)
 
 if __name__ == "__main__":
     intf = SSHInterface("localhost", 5555, example_callback)
