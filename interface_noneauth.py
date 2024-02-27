@@ -59,14 +59,12 @@ class SSHInterface:
 
 
 def example_callback(channel):
-    channel.send("Hi :)\r\n")
-    while True:
-        while not channel.recv_ready():
-            pass
-        data = channel.recv(1024)
-        print(f"[>] {data}")
-        channel.sendall(data)
+    channel = wrappers.ChannelWrapper(channel)
+    n = channel.chinput("What's your name? ")
+    print(f"[*] Their name is {n}")
+    channel.chprint(f"Hello, {n}!")
 
 if __name__ == "__main__":
+    import wrappers
     intf = SSHInterface("localhost", 5555, example_callback)
     intf.start()
