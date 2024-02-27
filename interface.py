@@ -2,8 +2,8 @@
 # Released under GPL v3.0: https://www.gnu.org/licenses/gpl-3.0
 
 import paramiko
-import socket  
-import threading  
+import socket
+import threading
 
 class SSHInterface:
     def __init__(self, ip, port, callback) -> None: 
