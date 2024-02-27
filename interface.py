@@ -53,7 +53,7 @@ class SSHInterface:
         transport.start_server(server=self.server)
         channel = transport.accept(30) 
         if channel:
-            print("[*] SSH connection recieved")
+            print(f"[*] SSH connection from {addr} recieved")
             self.callback(channel)
             channel.close()
 
