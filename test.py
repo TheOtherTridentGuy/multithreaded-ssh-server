@@ -8,7 +8,5 @@ def example_callback(channel):
     print(f"[*] Their name is {n}")
     channel.chprint(f"Hello, {n}!")
 
-if __name__ == "__main__":
-    import wrappers
-    intf = interface.SSHInterface("localhost", 5555, example_callback)
-    intf.start()
+intf = interface.SSHInterface("localhost", 5555, example_callback)
+intf.start()
